@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block head_title %}
+Your Cart
+{% endblock %}
+
+{% block content %}
+<div class="row">
+{% if empty %}
+<center>{{message}}</center>
+{% else %}
+    <div class="col-sm-2"></div>
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <div class="col-lg-4">
+                        <th>Item</th>
+                    </div>
+                    <div class="col-lg-4">
+                        <th>Qty</th>
+                    </div>
+                    <div class="col-lg-4">
+                        <th>Price</th>
+                    </div>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Total: ${{cart.total}}</td>
+                </tr>
+            </tfoot>
+            {% for item in cart.cartitem_set.all %}
+            <tr>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <td>
+                            {{item.product.title}}
+                            {% if item.variations.all %}
+                                <ul>
+                                    {% for subitem in item.variations.all %}
+                                        <li>
+                                            {{subitem.category|capfirst}} : {{subitem.title|capfirst}}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                    </div>
+                    <div class="col-sm-4">
+                        <td>
+                            {{item.quantity}}
+                        </td>
+                    </div>
+                    <div class="col-sm-4">
+                        <td>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    ${{item.product.price}}
+                                </div>
+                                <div class="col-sm-2">  
+                                    <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger">Remove</a>
+                                </div>
+                            </div>
+                        </td>
+                    </div>
+                </div>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'checkout' %}" class="btn btn-outline-dark">checkout</a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

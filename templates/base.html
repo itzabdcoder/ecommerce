@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block head_title %}{% endblock %}</title>
+  <link rel = "stylesheet" type="text/css" href  = '{% static "css/bootstrap.min.css" %}' />
+  <link class="rounded" rel="icon" href="{% static 'img/MyChoices.jpg' %}" />
+  {% block other_css %}{% endblock %}
+  <style>
+    .bg-img-thumb{
+    width: auto; 
+    height: auto;
+    background-image: url("/static/img/placeholder.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    {% if marketing_message %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
+      <strong><center>{{ marketing_message }}</center></strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% include 'navbar.html' %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert 
+    {% if 'success' in message.tags %} alert-success
+    {% elif 'warning' in message.tags %} alert-warning
+    {% elif 'error' in message.tags %} alert-danger
+    {% endif %} 
+    alert-dismissible fade show" role="alert" style="padding-bottom: 0px;">
+        <p class="messages">
+          {% if "safe" in message.tags %}
+            {{ message|safe }}
+          {% else %}
+            {{message}}
+          {% endif %}
+        </p>  
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+    {% block jumbotron %}
+    {% endblock %}
+  </div>
+</body>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80  OJFdroafW" crossorigin="anonymous"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+</html>

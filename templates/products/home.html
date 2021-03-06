@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}
+MyChoices
+{% endblock %}
+
+{% block other_css %}
+<style>
+  .jumbotron {
+    padding: 4rem 2rem;
+    margin-bottom: 2rem;
+    background-color: var(--bs-light);
+    border-radius:.3rem;
+  }
+</style>
+{% endblock %}
+{% block jumbotron %}
+<div class="container">
+  <div class="jumbotron" style="font-family: Pricedown;">
+      <h1 class="display-1">Vice city</h1>
+      <h1 class="display-4" >Hello Customer</h1>
+      <h2>This is a new shopping page.</h2>
+      <hr class="my-4">
+      <h3>Be the first one to buy the product and provide feedback.</h3>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+    <br>
+    <div class="row d-flex flex-wrap align-items-center">
+        {% for product in products %}
+        <div class="col-sm-3">
+          <div class="thumbnail">
+            {% if product.productimage_set.all %}
+            {% for item in product.productimage_set.all %}
+            <a href="{{ product.get_absolute_url }}">
+              <div class="bg-img-thumb" style="background-image: url('/media/{{MEDIA_URL}}{{item.image}}');height: 210px; width: 250px; margin: 0 auto;"></div>
+            </a>
+            {% endfor %}
+            {% else %}
+                <img src="{% static '/img/placeholder.jpg' %}" class="responsive">
+            {% endif %}
+          </div>
+            <hr>
+            <div class="caption">
+              <h3>{{product.title}}</h3>
+              <p><a href='{{ product.get_absolute_url }}' class="btn btn-dark">Buy</a>
+              </p>
+            </div>
+          <br>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+{% endblock %}
+  

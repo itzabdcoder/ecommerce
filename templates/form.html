@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+{% if logging %}
+Login
+{% else %}
+Sign In
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+        <form action="" method="POST">{% csrf_token %}
+            {% if logging %}
+            <div style="margin-top: 150px;">
+            <h1 class="h3 mb-3 fw-normal">Login</h1>
+                {{form.as_p}}
+            </div>
+            <button class="w-25 btn btn-lg btn-success" type="submit">Login</button><br><br>
+            Don't have an account? <strong><a href="{% url 'auth_register' %}" class="link-success">Sign In</a></strong>
+            {% else %}
+            <div style="margin-top: 150px;">
+            <h1 class="h3 mb-3 fw-normal">Sign In</h1>
+                {{form.as_p}}
+            </div>
+            <button class="w-25 btn btn-lg btn-success" type="submit">Sign In</button><br><br>
+            Already have an account? <strong><a href="{% url 'auth_login' %}" class="link-success">Login</a></strong>
+            {% endif %}
+        </form>
+</div>
+
+{% endblock %}
