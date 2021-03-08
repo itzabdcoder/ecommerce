@@ -14,13 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path , include ,re_path
+from django.urls import path ,re_path
 from django.conf import settings
 from django.conf.urls.static import static
+
 from products import views
 from carts import views as cartviews
 from orders import views as orderviews
 from accounts import views as accountviews
+from marketing import views as marketingviews
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -44,6 +46,9 @@ urlpatterns = [
     re_path(r'^accounts/login/$', accountviews.login_view, name = 'auth_login'),
     re_path(r'^accounts/register/$', accountviews.registration_view, name = 'auth_register'),
     re_path(r'^accounts/activate/(?P<activation_key>\w+)$', accountviews.activation_view, name = 'activation_view'),
+
+    # urls of marketing app
+    re_path(r'^ajax/dismiss_marketing_message/$', marketingviews.dismiss_marketing_message, name = 'dismiss_marketing_message'),
 ]
 
 if settings.DEBUG:

@@ -4,7 +4,10 @@ from marketing.models import MarketingMessage
 # Create your views here.
 def home(request):
     product = Product.objects.all()
-    marketing_message = MarketingMessage.objects.all()[0].message
+    try:
+        marketing_message = MarketingMessage.objects.all()[0].message
+    except:
+        marketing_message = None
     template = 'products/home.html'
     context = {
         "products": product,
