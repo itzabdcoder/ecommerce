@@ -23,7 +23,6 @@ def checkout(request):
     try:
         new_order = Order.objects.get(cart = cart)
     except Order.DoesNotExist:
-        print("not exist")
         new_order = Order() 
         new_order.cart = cart
         new_order.user = request.user

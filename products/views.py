@@ -5,13 +5,12 @@ from marketing.models import MarketingMessage
 def home(request):
     product = Product.objects.all()
     try:
-        marketing_message = MarketingMessage.objects.all()[0].message
+        request.session['marketing_message'] = MarketingMessage.objects.all()[0].message
     except:
         marketing_message = None
     template = 'products/home.html'
     context = {
         "products": product,
-        "marketing_message" : marketing_message
     }
     return render(request, template, context)
 

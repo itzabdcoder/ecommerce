@@ -21,9 +21,9 @@
 </head>
 <body>
   <div class="container">
-    {% if marketing_message %}
+    {% if request.session.marketing_message %}
     <div id="marketing-message-btn" class="alert alert-success alert-dismissible fade show" role="alert" style="margin-bottom: 0px;">
-      <strong><center>{{ marketing_message }}</center></strong>
+      <strong><center>{{ request.session.marketing_message }}</center></strong>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endif %}

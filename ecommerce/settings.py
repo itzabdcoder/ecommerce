@@ -149,3 +149,6 @@ EMAIL_USE_TLS = True
 
 STRIPE_SECRET_KEY = secret_key # Your stripe's secret key
 STRIPE_PUBLISHABLE_KEY = publishable_key # Your stripe's publishable key
+
+MARKETING_HOURS_OFFSET = 0
+MARKETING_SECONDS_OFFSET = 5
