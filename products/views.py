@@ -3,11 +3,11 @@ from .models import Product, ProductImage
 from marketing.models import MarketingMessage, Slider
 # Create your views here.
 def home(request):
-    sliders = Slider.objects.all()
-    product = Product.objects.all()
+    sliders = Slider.objects.all_featured()
+    products = Product.objects.all()
     template = 'products/home.html'
     context = {
-        "products": product,
+        "products": products,
         "sliders": sliders,
     }
     return render(request, template, context)

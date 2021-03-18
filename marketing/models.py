@@ -21,7 +21,7 @@ class MarketingMessageManager(models.Manager):
     def all(self):
         return self.get_queryset().active()
 
-    def featured(self):
+    def all_featured(self):
         return self.get_queryset().active().featured()
 
     def get_featured_item(self):
@@ -58,8 +58,7 @@ class Slider(models.Model):
     text = models.CharField(max_length=120, null=True, blank=True)
     active = models.BooleanField(default=False)
     featured = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(default=timezone.now)
-    updated = models.DateTimeField(default=timezone.now)
+    url_link = models.CharField(max_length=250, null=True, blank=True)
     start_date = models.DateTimeField(default=timezone.now, null=True, blank=True)
     end_date = models.DateTimeField(default=timezone.now, null=True, blank=True)
 
@@ -69,7 +68,7 @@ class Slider(models.Model):
         return str(self.image)
 
     def get_image_url(self):
-        return "%s/%s" %(settings.MEDIA_URL, self.image)
+        return "%s%s" %(settings.MEDIA_URL, self.image)
 
     class Meta:
         ordering = ["order","-start_date","-end_date"]

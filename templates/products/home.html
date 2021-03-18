@@ -15,7 +15,7 @@ MyChoices
   }
 </style>
 {% endblock %}
-{% block jumbotron %}
+{% block carousel %}
 {% if sliders %}
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -26,7 +26,9 @@ MyChoices
   <div class="carousel-inner">
     {% for slider in sliders %}
     <div class="carousel-item {% if forloop.first %}active{% endif %}">
-      <img src="{{ slider.get_image_url }}" class="d-block w-100">
+      {% if slider.url_link %} <a href="{{slider.get_image_url}}">{% endif %}
+      <img src="{{ slider.get_image_url|safe }}" class="d-block w-100">
+      {% if slider.url_link %}</a> {% endif %}
       <div class="carousel-caption d-none d-md-block" style="font-family: Pricedown;">
         {% if slider.header_text %}
         <h1>{{ slider.header_text }}</h1>
