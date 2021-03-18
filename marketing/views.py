@@ -9,8 +9,8 @@ def dismiss_marketing_message(request):
         data = {"success":True}
         print(data)
         json_data = json.dumps(data)
-        request.session['dismiss_message_for'] = str(timezone.now()+datetime.timedelta(seconds=5))
-        # request.session['dismiss_message_for'] = str(timezone.now()+datetime.timedelta(hours=settings.MARKETING_HOURS_OFFSET,seconds=settings.MARKETING_SECONDS_OFFSET))
+        # request.session['dismiss_message_for'] = str(timezone.now()+datetime.timedelta(seconds=5))
+        request.session['dismiss_message_for'] = str(timezone.now()+datetime.timedelta(hours=settings.MARKETING_HOURS_OFFSET,seconds=settings.MARKETING_SECONDS_OFFSET))
         print(json_data)
         return HttpResponse(json_data, content_type='application/json')
     else:

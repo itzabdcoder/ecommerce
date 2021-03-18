@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block head_title %}{% endblock %}</title>
-  <link rel = "stylesheet" type="text/css" href  = '{% static "css/bootstrap.min.css" %}' />
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel = "stylesheet" href  = '{% static "css/bootstrap.min.css" %}'>
   <link class="rounded" rel="icon" href="{% static 'img/MyChoices.jpg' %}" />
   {% block other_css %}{% endblock %}
   <style>
@@ -47,16 +48,17 @@
     </div>
     {% endfor %}
     {% endif %}
-    {% block content %}
-    {% endblock %}
     {% block jumbotron %}
+    {% endblock %}
+    {% block content %}
     {% endblock %}
   </div>
 </body>
-<script src="{% static 'js/bootstrap.bundle.min.js' %}" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80  OJFdroafW" crossorigin="anonymous"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
-<script src="{% static 'js/jquery.min.js' %}"></script>
+
 <script>
   $(document).ready(function(){
     $('#marketing-message-btn').click(function(){

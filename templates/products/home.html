@@ -16,15 +16,38 @@ MyChoices
 </style>
 {% endblock %}
 {% block jumbotron %}
-<div class="container">
-  <div class="jumbotron" style="font-family: Pricedown;">
-      <h1 class="display-1">Vice city</h1>
-      <h1 class="display-4" >Hello Customer</h1>
-      <h2>This is a new shopping page.</h2>
-      <hr class="my-4">
-      <h3>Be the first one to buy the product and provide feedback.</h3>
+{% if sliders %}
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    {% for slider in sliders %}
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter|add:'-1' }}" {% if forloop.first %} class="active" {% endif %} aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
+    {% endfor %}
   </div>
+  <div class="carousel-inner">
+    {% for slider in sliders %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <img src="{{ slider.get_image_url }}" class="d-block w-100">
+      <div class="carousel-caption d-none d-md-block" style="font-family: Pricedown;">
+        {% if slider.header_text %}
+        <h1>{{ slider.header_text }}</h1>
+        {% endif %}
+        {% if slider.text %}
+        <h2>{{ slider.text }}</h2>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
+{% endif %}
 {% endblock %}
 
 {% block content %}

@@ -1,16 +1,14 @@
 from django.shortcuts import render, Http404
 from .models import Product, ProductImage
-from marketing.models import MarketingMessage
+from marketing.models import MarketingMessage, Slider
 # Create your views here.
 def home(request):
+    sliders = Slider.objects.all()
     product = Product.objects.all()
-    try:
-        request.session['marketing_message'] = MarketingMessage.objects.all()[0].message
-    except:
-        marketing_message = None
     template = 'products/home.html'
     context = {
         "products": product,
+        "sliders": sliders,
     }
     return render(request, template, context)
 

@@ -134,7 +134,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR,"static","media")
 # MEDIA_ROOT = '/Users/Home/Desktop/static/media/'
 STATIC_ROOT = os.path.join(BASE_DIR,"static","static_root")
 STATICFILES_DIRS = [
+    # BASE_DIR / "static",'static_files',
+
     os.path.join(BASE_DIR,"static","static_files"),
+]
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
 from .credentials import email, host, host_user, host_password, secret_key, publishable_key
@@ -150,5 +156,5 @@ EMAIL_USE_TLS = True
 STRIPE_SECRET_KEY = secret_key # Your stripe's secret key
 STRIPE_PUBLISHABLE_KEY = publishable_key # Your stripe's publishable key
 
-MARKETING_HOURS_OFFSET = 0
-MARKETING_SECONDS_OFFSET = 5
+MARKETING_HOURS_OFFSET = 3
+MARKETING_SECONDS_OFFSET = 0
