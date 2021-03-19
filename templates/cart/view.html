@@ -69,7 +69,7 @@ Your Cart
             </tr>
             {% endfor %}
         </table>
-        <a href="{% url 'checkout' %}" class="btn btn-outline-dark">checkout</a>
+        {% if not empty %}<a href="{% url 'checkout' %}" class="btn btn-outline-dark">checkout</a>{% endif %}
     </div>
 </div>
 {% endif %}
