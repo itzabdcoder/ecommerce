@@ -49,6 +49,8 @@ urlpatterns = [
 
     # urls of marketing app
     re_path(r'^ajax/dismiss_marketing_message/$', marketingviews.dismiss_marketing_message, name = 'dismiss_marketing_message'),
+    re_path(r'^ajax/email_signup/$', marketingviews.email_signup, name = 'ajax_email_signup'),
+
 ]
 
 if settings.DEBUG:

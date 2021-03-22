@@ -1,20 +1,21 @@
 <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog-centered modal-dialog">
-      <div class="modal-content">
+  <div class="modal-dialog-centered modal-dialog">
+    <div class="modal-content">
+        <form method="POST" action="{% url 'ajax_email_signup' %}" id='sendForm'>{% csrf_token %}
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Enter Details:</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="/">
-                <label class="col-form-label">Your Email:</label>
-                <input class="form-control" type="email" name="email" id="modalEmail" placeholder="owner@example.com">
-            </form>
+          <p id="modalMessage"></p>
+          <label class="col-form-label">Your Email:</label>
+          <input class="form-control" type="email" name="email" id="modalEmail" placeholder="owner@example.com">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
+          <button type="submit" class="btn btn-success" id="sendMarketingForm">Save changes</button>
         </div>
-      </div>
+      </form>
     </div>
   </div>
+</div>

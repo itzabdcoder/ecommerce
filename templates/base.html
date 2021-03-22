@@ -71,16 +71,35 @@
           "csrfmiddlewaretoken": "{{ csrf_token }}",
         },
         success: function(data){
+          console.log(data)
         },
         error: function(){
           alert("Something went wrong")
         },
       });
     });
+    {% if not user.is_authenticated and not request.session.marketing_email_confirmed %}
     function showModal(){
       $('#exampleModal').modal("show");
     }
-    setTimeout(showModal, 1);
+    setTimeout(showModal, 5000);
+    {% endif %}
+    $('#sendMarketingForm').click(function(e){
+      e.preventDefault()
+      var mform = $('#sendForm').serialize()
+      $.ajax({
+        type: "POST",
+        url: "{% url 'ajax_email_signup' %}", 
+        data: mform,
+        success: function(data){
+          $('#exampleModal').modal("hide");
+        },
+        error: function(data){
+          var obj = data.responseJSON
+          $('#modalMessage').html('<p>' + obj.email + '</p>')
+        },
+      });
+    });
   });
 </script>
 </html>
