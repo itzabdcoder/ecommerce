@@ -1,3 +1,4 @@
+from accounts.models import EmailMarketingSignUp
 from django.conf import settings
 from django.shortcuts import render, HttpResponse, Http404
 from django.utils import timezone
@@ -24,6 +25,7 @@ def email_signup(request):
         form = EmailForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
+            new_signup = EmailMarketingSignUp.objects.create(email=email)
             request.session['marketing_email_confirmed'] = True
             return HttpResponse('Success %s' %(email))
         if form.errors:

@@ -1,8 +1,9 @@
 from django.core.mail import send_mail
 from django.conf import settings
-from django.urls import reverse
 from django.db import models
 from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils import timezone
 # Create your models here.
 
 class UserStripe(models.Model):
@@ -33,3 +34,11 @@ class EmailConfirmed(models.Model):
 
     def email_user(self, subject, message, from_email= None, **kwargs):
         send_mail(subject, message, from_email, [self.user.email], kwargs)
+
+class EmailMarketingSignUp(models.Model):
+    email = models.EmailField()
+    timestamp = models.DateTimeField(default=timezone.now)
+    updated = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.email)
