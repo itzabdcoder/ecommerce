@@ -5,16 +5,6 @@
 MyChoices
 {% endblock %}
 
-{% block other_css %}
-<style>
-  .jumbotron {
-    padding: 4rem 2rem;
-    margin-bottom: 2rem;
-    background-color: var(--bs-light);
-    border-radius:.3rem;
-  }
-</style>
-{% endblock %}
 {% block carousel %}
 {% if sliders %}
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -53,7 +43,6 @@ MyChoices
 {% endblock %}
 
 {% block content %}
-
     <br>
     <div class="row d-flex flex-wrap align-items-center">
         {% for product in products %}
