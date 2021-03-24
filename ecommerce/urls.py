@@ -36,9 +36,9 @@ urlpatterns = [
     re_path(r'^cart/(?P<id>\d+)/$' , cartviews.remove_from_cart, name='remove_from_cart'),
     re_path(r'^cart/(?P<slug>[\w-]+)/$' , cartviews.add_to_cart, name='add_to_cart'),
     re_path(r'^cart/$', cartviews.view, name = 'cart'),
-    re_path(r'^checkout/$', orderviews.checkout, name = 'checkout'),
 
     # urls of order app
+    re_path(r'^checkout/$', orderviews.checkout, name = 'checkout'),
     re_path(r'^orders/$', orderviews.orders, name = 'user_order'),
 
     # urls of accounts app
@@ -46,6 +46,7 @@ urlpatterns = [
     re_path(r'^accounts/login/$', accountviews.login_view, name = 'auth_login'),
     re_path(r'^accounts/register/$', accountviews.registration_view, name = 'auth_register'),
     re_path(r'^accounts/activate/(?P<activation_key>\w+)$', accountviews.activation_view, name = 'activation_view'),
+    re_path(r'^ajax/add_user_address/$', accountviews.add_user_address, name = 'ajax_add_user_address'),
 
     # urls of marketing app
     re_path(r'^ajax/dismiss_marketing_message/$', marketingviews.dismiss_marketing_message, name = 'dismiss_marketing_message'),

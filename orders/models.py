@@ -25,4 +25,4 @@ class Order(models.Model):
     final_total = models.DecimalField(default=10.99, max_digits=1000, decimal_places= 2)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
