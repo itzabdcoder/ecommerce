@@ -4,7 +4,25 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from localflavor.in_.in_states import STATE_CHOICES
 # Create your models here.
+
+class UserAddress(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    address = models.CharField(max_length=200)
+    address2 = models.CharField(max_length=200, null=True, blank=True)
+    city = models.CharField(max_length=120)
+    state = models.CharField(max_length=120, choices=STATE_CHOICES, null=True, blank=True)
+    country = models.CharField(max_length=120, null=True, blank=True)
+    zipcode = models.CharField(max_length=25, null=True, blank=True)
+    phone = models.CharField(max_length=100)
+    shipping = models.BooleanField(default=True)
+    billing = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(default=timezone.now)
+    updated = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.user.username)
 
 class UserStripe(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

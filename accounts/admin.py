@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UserStripe, EmailConfirmed, EmailMarketingSignUp
+from .models import UserStripe, EmailConfirmed, EmailMarketingSignUp, UserAddress
 # Register your models here.
 
 admin.site.register(UserStripe)
@@ -12,3 +12,9 @@ class EmailMarketingSignUpAdmin(admin.ModelAdmin):
         model = EmailMarketingSignUp
 
 admin.site.register(EmailMarketingSignUp)
+
+class UserAddressAdmin(admin.ModelAdmin):
+    class Meta:
+        model = UserAddress
+
+admin.site.register(UserAddress)

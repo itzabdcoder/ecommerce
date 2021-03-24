@@ -1,11 +1,13 @@
+from accounts.forms import UserAddressForm
+from accounts.models import UserAddress
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-import time
-# Create your views here.
 from carts.models import Cart
 from .models import Order
 from .utils import id_generator
+import time
+# Create your views here.
 
 def orders(request):
     context = {}
@@ -30,11 +32,15 @@ def checkout(request):
         new_order.save()
     except:
         return HttpResponseRedirect(reverse("cart"))
+    address_form = UserAddressForm(request.POST or None)
+    if address_form.is_valid():
+        new_address = address_form.save(commit=False)
+        new_address.user = request.user
+        new_address.save()
+    context = {"address_form":address_form}
     if new_order.status == "Finished":
-        #cart.delete()
         del request.session['cart_id']
         del request.session['items_total']
         return HttpResponseRedirect(reverse("cart"))
-    context = {}
-    template = "products/home.html"
+    template = "orders/checkout.html"
     return render(request, template, context)

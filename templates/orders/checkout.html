@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+Your Address
+{% endblock %}
+
+{% block content %}
+
+<form action="" method="POST">{% csrf_token %}
+    {{ address_form.as_p }}
+    <input type="submit" value="Confirm" class="btn btn-outline-success">
+</form>
+
+{% endblock %}

@@ -98,7 +98,7 @@
         },
         error: function(data){
           var obj = data.responseJSON
-          $('#modalMessage').html('<p>' + obj.email + '</p>')
+          $('#modalMessage').html('<p style="color:red">' + obj.email + '</p>')
         },
       });
     });
