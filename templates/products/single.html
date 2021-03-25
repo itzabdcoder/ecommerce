@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block head_title %}
+
 {{product.title}}
 {% endblock %}
 
 {% block content %}
+
 <hr>
 <div class="row">
     <div class="col-sm-4">
@@ -20,7 +23,7 @@
                 <div class="form-row">
                     <div class="row">
                         <div class="col-sm-3 d-grid gap-2 d-md-flex">
-                            <input name="qty" type="number" placeholder="quantity"  Quantity" min="1" class="text-light bg-dark me-2" required>
+                            <input name="qty" type="number" placeholder="Quantity" min="1" max="1000" class="text-light form-control bg-dark" required>
                         </div>
                         {% if product.variation_set.all %}
                         <div class="col-sm-3 d-grid gap-2 d-md-flex">

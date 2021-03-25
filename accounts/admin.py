@@ -14,6 +14,8 @@ class EmailMarketingSignUpAdmin(admin.ModelAdmin):
 admin.site.register(EmailMarketingSignUp)
 
 class UserAddressAdmin(admin.ModelAdmin):
+    list_display = ["__str__","shipping","billing"]
+    list_editable = ["shipping","billing"]
     class Meta:
         model = UserAddress
 

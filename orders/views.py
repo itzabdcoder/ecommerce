@@ -40,7 +40,13 @@ def checkout(request):
         address_form = UserAddressForm()
     else:
         address_form = None
-    context = {"address_form":address_form}
+    current_addresses = UserAddress.objects.filter(user=request.user)
+    billing_addresses = UserAddress.objects.get_billing_addresses(user=request.user)
+    context = {
+        "address_form":address_form,
+        "current_addresses": current_addresses,
+        "billing_addresses": billing_addresses,
+        }
     if new_order.status == "Finished":
         del request.session['cart_id']
         del request.session['items_total']
