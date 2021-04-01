@@ -10,27 +10,44 @@ Your Address
     <div class="col-sm-6">
         <form action="" method="POST">
             {% if current_addresses %}
+            <br>
                 <h3>Saved Addresses</h3>
                 {% for address in current_addresses %}
-                <input value="{{ address.id }}" name="shipping_address" type="radio"> {{ address.get_address }} <br>
+                {% if request.user.userdefaultaddress.shipping.id == address.id %}
+                <input value="{{ address.id }}" name="shipping_address" type="radio" class="form-check-input" checked="checked"> {{ address.get_address }} <br> 
+                {% else %}
+                <input value="{{ address.id }}" name="shipping_address" type="radio" class="form-check-input"> {{ address.get_address }} <br>
+                {% endif %}
                 {% endfor %}
             {% endif %}
             {% if billing_addresses %}
+            <br>
             <h3>Billing Addresses</h3>
                 {% for address in billing_addresses %}
-                <input value="{{ address.id }}" name="billing_address" type="radio"> {{ address.get_address }} <br>
+                {% if request.user.userdefaultaddress.billing.id == address.id %}
+                <input value="{{ address.id }}" name="billing_address" type="radio" class="form-check-input" checked="checked"> {{ address.get_address }} <br>
+                {% else %}
+                <input value="{{ address.id }}" name="billing_address" type="radio" class="form-check-input"> {{ address.get_address }} <br>
+                {% endif %}                
                 {% endfor %}
             {% endif %}
+            <br>
             <h3>Credit Card Info:</h3>
         </form>
     </div>
     <div class="col-sm-6 float-right">
         {% if address_form %}
-        <h3>Add New Address:</h3>
-            <form action="{% url 'ajax_add_user_address' %}?next=checkout" method="POST">{% csrf_token %}
-                {{ address_form.as_p }}
-                <input type="submit" value="Confirm" class="btn btn-outline-success">
-            </form>
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <h3>Add New Shipping Address:</h3>
+                <form action="{% url 'ajax_add_user_address' %}?next=checkout" method="POST">{% csrf_token %}
+                    {{ address_form.as_p }}
+                    <input type="submit" value="Add New Shipping Address" class="form-control btn btn-outline-success mb-4">
+                </form>
+            </div>
+        </div>
+        <br>
         {% endif %}
     </div>
 </div>

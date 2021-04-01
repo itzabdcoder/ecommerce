@@ -9,24 +9,31 @@ Sign In
 {% endblock %}
 
 {% block content %}
-<div class="row text-center">
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
         <form action="" method="POST">{% csrf_token %}
             {% if logging %}
-            <div style="margin-top: 150px;">
-            <h1 class="h3 mb-3 fw-normal">Login</h1>
-                {{form.as_p}}
+            <div class="card" style="margin-top: 150px;">
+                <div class="card-body">
+                    <h1 class="h3 mb-3 fw-normal text-center">Login</h1>
+                    {{form.as_p}}
+                    <center><button class="form-control btn btn-lg btn-success text-center" type="submit">Login</button><br><br></center>
+                    <p class="text-center">Don't have an account? <strong><a href="{% url 'auth_register' %}" class="link-success">Sign In</a></strong></p>
+                </div>
             </div>
-            <button class="w-25 btn btn-lg btn-success" type="submit">Login</button><br><br>
-            Don't have an account? <strong><a href="{% url 'auth_register' %}" class="link-success">Sign In</a></strong>
             {% else %}
-            <div style="margin-top: 150px;">
-            <h1 class="h3 mb-3 fw-normal">Sign In</h1>
-                {{form.as_p}}
+            <div class="card" style="margin-top: 50px;">
+                <div class="card-body">
+                    <h1 class="h3 mb-3 fw-normal text-center">Sign In</h1>
+                    {{form.as_p}}
+                    <center><button class="form-control btn btn-lg btn-success" type="submit">Sign In</button><br><br></center> 
+                    <p class="text-center">Already have an account? <strong><a href="{% url 'auth_login' %}" class="link-success">Login</a></strong></p> 
+                </div>
             </div>
-            <button class="w-25 btn btn-lg btn-success" type="submit">Sign In</button><br><br>
-            Already have an account? <strong><a href="{% url 'auth_login' %}" class="link-success">Login</a></strong>
             {% endif %}
         </form>
+    </div>
 </div>
 
 {% endblock %}

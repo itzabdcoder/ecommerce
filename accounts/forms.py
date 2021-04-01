@@ -6,6 +6,7 @@ from .models import UserAddress
 User = get_user_model()
 
 class UserAddressForm(forms.ModelForm):
+    default = forms.BooleanField(label="Make Default")
     class Meta:
         model = UserAddress
         fields = [
@@ -16,8 +17,18 @@ class UserAddressForm(forms.ModelForm):
             "country",
             "zipcode",
             "phone",
-            "billing",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super(UserAddressForm, self).__init__(*args, **kwargs)
+        self.fields['address'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['address2'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['city'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['state'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['country'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['zipcode'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['phone'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['default'].widget.attrs.update({'class':"form-check-input", 'type':"checkbox"})
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -44,6 +55,11 @@ class LoginForm(forms.Form):
             pass
         else:
             return password
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['password'].widget.attrs.update({'class' : 'form-control'})
 
 class RegistrationForm(forms.ModelForm):
 
@@ -79,3 +95,10 @@ class RegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['email'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['password1'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['password2'].widget.attrs.update({'class' : 'form-control'})
