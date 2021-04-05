@@ -8,13 +8,17 @@ from carts.models import Cart
 from .models import Order
 from .utils import id_generator
 import time
+import stripe
 # Create your views here.
 
 try:
     stripe_pub = settings.STRIPE_PUBLISHABLE_KEY
+    stripe_secret = settings.STRIPE_SECRET_KEY
 except Exception as e:
     print(str(e))
     raise NotImplementedError(str(e))
+
+stripe.api_key = stripe_secret
 
 def orders(request):
     context = {}
@@ -51,9 +55,33 @@ def checkout(request):
     billing_addresses = UserAddress.objects.get_billing_addresses(user=request.user)
 
     if request.method == 'POST':
-        print(request.POST['stripeToken'])
+        try:
+            user_stripe = request.user.userstripe.stripe_id
+            customer = stripe.Customer.retrieve(user_stripe)
+            # print(customer)
+        except:
+            customer = None
+            pass
+        if customer is not None:
+            token = request.POST['stripeToken']
+            card = stripe.Customer.create_source(
+                customer.id,
+                source="tok_visa",
+                # "address" => ["city" => $city, "country" => $country, "line1" => $address, "line2" => "", "postal_code" => $zipCode, "state" => $state]
+            )
+            charge = stripe.Charge.create(
+                amount=int(new_order.final_total * 100),
+                currency="inr",
+                source="tok_visa",
+                description="Charge for %s" %(request.user.username),
+            )
+        if charge['captured']:
+            print('charged')
+        print(card)
+        print(charge)
     
     context = {
+        "order": new_order,
         "address_form":address_form,
         "current_addresses": current_addresses,
         "billing_addresses": billing_addresses,
