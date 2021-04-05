@@ -3,5 +3,7 @@
 Orders
 {% endblock %}
 {% block content %}
-{{user.order_set.all}}
+{% for order in user.order_set.all %}
+{{order.final_total}}
+{% endfor %}
 {% endblock %}

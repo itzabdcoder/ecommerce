@@ -3,6 +3,7 @@ from accounts.models import UserAddress
 from django.shortcuts import render, HttpResponseRedirect
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.urls import reverse
 from carts.models import Cart
 from .models import Order
@@ -42,7 +43,13 @@ def checkout(request):
         new_order.order_id = id_generator()
         new_order.save()
     except:
+        new_order = None
         return HttpResponseRedirect(reverse("cart"))
+    final_amount = 0
+    if new_order is not None:
+        new_order.sub_total = cart.total
+        new_order.save()
+        final_amount = new_order.get_final_amount()
     try:
         address_added = request.GET.get("address_added")
     except:
@@ -67,18 +74,22 @@ def checkout(request):
             card = stripe.Customer.create_source(
                 customer.id,
                 source="tok_visa",
-                # "address" => ["city" => $city, "country" => $country, "line1" => $address, "line2" => "", "postal_code" => $zipCode, "state" => $state]
             )
             charge = stripe.Charge.create(
-                amount=int(new_order.final_total * 100),
+                amount=int(final_amount * 100),
                 currency="inr",
                 source="tok_visa",
                 description="Charge for %s" %(request.user.username),
             )
         if charge['captured']:
-            print('charged')
-        print(card)
-        print(charge)
+            new_order.status = "Finished"
+            new_order.save()
+            del request.session['cart_id']
+            del request.session['items_total']
+            messages.success(request, "Your Cart Products has been purchased refer <a href='https://dashboard.stripe.com/test/payments'> https://dashboard.stripe.com/test/payments </a>",extra_tags='safe')
+            return HttpResponseRedirect(reverse("user_order"))
+        # print(card)
+        # print(charge)
     
     context = {
         "order": new_order,
@@ -87,9 +98,5 @@ def checkout(request):
         "billing_addresses": billing_addresses,
         "stripe_pub": stripe_pub,
         }
-    if new_order.status == "Finished":
-        del request.session['cart_id']
-        del request.session['items_total']
-        return HttpResponseRedirect(reverse("cart"))
     template = "orders/checkout.html"
     return render(request, template, context)
