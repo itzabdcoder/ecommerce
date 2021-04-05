@@ -8,6 +8,8 @@
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
   <link rel = "stylesheet" href  = '{% static "css/bootstrap.min.css" %}'>
   <link class="rounded" rel="icon" href="{% static 'img/MyChoices.jpg' %}" />
+  <!-- <script src="{% static 'stripe/js.stripe.com' %}"></script> -->
+  <script src="https://js.stripe.com/v3/"></script>
   {% block other_css %}{% endblock %}
   <style>
     .bg-img-thumb{
@@ -105,6 +107,12 @@
         },
       });
     });
+  });
+</script>
+<script>
+  $(document).ready(function(){
+    {% block jquery %}
+    {% endblock %}
   });
 </script>
 </html>

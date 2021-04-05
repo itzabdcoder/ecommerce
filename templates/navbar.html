@@ -29,7 +29,7 @@
             <li class="nav-item">
               <a class="text-light nav-link active" aria-current="page" href="{% url 'cart' %}">
                 Cart
-                <span class="badge bg-light text-dark">
+                <span class="badge bg-light text-dark" style="display: inline-block;">
                   {% if not request.session.items_total %}
                   0
                   {% else %}
