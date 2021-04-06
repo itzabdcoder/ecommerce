@@ -8,7 +8,15 @@ Your Address
 {% block content %}
 <div class="row">
     <div class="col-sm-6">
-      <h3>Current Total: {{ order.get_final_amount }}</h3>
+      <h3>
+        Current Total: ₹ {{ order.get_final_amount }}
+        <input class="form-check-input" type="hidden" id="disabledFieldsetCheck" disabled>
+        <label class="form-check-label" for="disabledFieldsetCheck">
+          <h6>
+            (Tax Included)
+          </h6> 
+        </label>
+      </h3>
         <form method="POST" id="payment-form">{% csrf_token %}
             {% if current_addresses %}
             <br>

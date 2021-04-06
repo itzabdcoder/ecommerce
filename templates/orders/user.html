@@ -4,6 +4,6 @@ Orders
 {% endblock %}
 {% block content %}
 {% for order in user.order_set.all %}
-{{order.final_total}}
+{{order.final_total}} <br>
 {% endfor %}
 {% endblock %}

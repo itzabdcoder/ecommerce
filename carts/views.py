@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.shortcuts import render, HttpResponseRedirect
 from .models import Cart, CartItem
 from django.urls import reverse
@@ -16,7 +17,8 @@ def view(request):
             line_total =  float(item.product.price) * item.quantity 
             new_total += line_total
         request.session['items_total'] = cart.cartitem_set.count()
-        cart.total = new_total
+        two_dec_digits = Decimal(10)  ** -2
+        cart.total = Decimal(new_total).quantize(two_dec_digits)
         cart.save()
     else:
         message = "Your Cart is EMPTY"

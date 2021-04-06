@@ -6,7 +6,12 @@ Your Cart
 {% block content %}
 <div class="row">
 {% if empty %}
-<center>{{message}}</center>
+<center>
+    <h3 style="margin-top: 250px;">
+        {{message}}
+    </h3>
+</center>
+    
 {% else %}
     <div class="col-sm-2"></div>
     <div class="col-md-8">
@@ -28,7 +33,13 @@ Your Cart
                 <tr>
                     <td></td>
                     <td></td>
-                    <td>Total: ${{cart.total}}</td>
+                    <td>
+                        Total: ₹ {{cart.total}} 
+                        <input class="form-check-input" type="hidden" id="disabledFieldsetCheck" disabled>
+                        <label class="form-check-label" for="disabledFieldsetCheck">
+                         (Tax Excluded)
+                        </label>
+                    </td>
                 </tr>
             </tfoot>
             {% for item in cart.cartitem_set.all %}
@@ -57,7 +68,7 @@ Your Cart
                         <td>
                             <div class="row">
                                 <div class="col-sm-9">
-                                    ${{item.product.price}}
+                                    ₹ {{item.product.price}}
                                 </div>
                                 <div class="col-sm-2">  
                                     <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger">Remove</a>
