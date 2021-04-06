@@ -21,13 +21,13 @@ class UserAddressForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserAddressForm, self).__init__(*args, **kwargs)
-        self.fields['address'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['address2'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['city'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['state'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['country'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['zipcode'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['phone'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['address'].widget.attrs.update({'class' : 'form-control','placeholder' : 'Address'})
+        self.fields['address2'].widget.attrs.update({'class' : 'form-control','placeholder' : 'Address2'})
+        self.fields['city'].widget.attrs.update({'class' : 'form-control','placeholder' : 'City'})
+        self.fields['state'].widget.attrs.update({'class' : 'form-control','placeholder' : 'State'})
+        self.fields['country'].widget.attrs.update({'class' : 'form-control','placeholder' : 'Country'})
+        self.fields['zipcode'].widget.attrs.update({'class' : 'form-control','placeholder' : 'ZIP Code'})
+        self.fields['phone'].widget.attrs.update({'class' : 'form-control','placeholder' : 'Phone'})
         self.fields['default'].widget.attrs.update({'class':"form-check-input", 'type':"checkbox"})
 
 class LoginForm(forms.Form):

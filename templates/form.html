@@ -25,10 +25,18 @@ Sign In
             {% else %}
             <div class="card" style="margin-top: 50px;">
                 <div class="card-body">
+                    {% if form_title %}
+                    <h1 class="h3 mb-3 fw-normal text-center">{{ form_title }}</h1>
+                    {% else %}
                     <h1 class="h3 mb-3 fw-normal text-center">Sign In</h1>
+                    {% endif %}
                     {{form.as_p}}
+                    {% if submit_btn %}
+                    <center><button class="form-control btn btn-lg btn-success" type="submit">{{ submit_btn }}</button><br><br></center> 
+                    {% else %}
                     <center><button class="form-control btn btn-lg btn-success" type="submit">Sign In</button><br><br></center> 
                     <p class="text-center">Already have an account? <strong><a href="{% url 'auth_login' %}" class="link-success">Login</a></strong></p> 
+                    {% endif %}
                 </div>
             </div>
             {% endif %}

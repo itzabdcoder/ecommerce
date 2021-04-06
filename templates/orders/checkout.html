@@ -7,7 +7,8 @@ Your Address
 
 {% block content %}
 <div class="row">
-    <div class="col-sm-6">
+  <div class="col-sm-6">
+      <br>
       <h3>
         Current Total: ₹ {{ order.get_final_amount }}
         <input class="form-check-input" type="hidden" id="disabledFieldsetCheck" disabled>
@@ -28,6 +29,7 @@ Your Address
                 <input value="{{ address.id }}" name="shipping_address" type="radio" class="form-check-input"> {{ address.get_address }} <br>
                 {% endif %}
                 {% endfor %}
+                <br><a href="{% url 'add_user_address' %}" id="addShippingAddress" class="btn btn-primary">Add New Address</a><br>
             {% endif %}
             {% if billing_addresses %}
             <br>
@@ -57,10 +59,9 @@ Your Address
                 <button class="btn btn-outline-success form-control" type="submit">Submit Payment</button>
         </form>
     </div>
-    <div class="col-sm-6 float-right">
-        {% if address_form %}
+    <div class="col-sm-6" style="display: none;" id="shippingAddressForm">
         <br>
-        <div class="card">
+        <div class="card" style="border: none;">
             <div class="card-body">
                 <h3>Add New Shipping Address:</h3>
                 <form action="{% url 'ajax_add_user_address' %}?next=checkout" method="POST">{% csrf_token %}
@@ -70,7 +71,6 @@ Your Address
             </div>
         </div>
         <br>
-        {% endif %}
     </div>
 </div>
 
@@ -79,6 +79,16 @@ Your Address
 
   <script>
   {% block jquery %}
+  
+  $("#addShippingAddress").click(function(e){
+    e.preventDefault();
+    $("#shippingAddressForm").fadeToggle();
+  })
+
+  {% if not current_addresses %}
+  $("#shippingAddressForm").fadeToggle();
+  {% endif %}
+
   var stripe = Stripe('{{stripe_pub}}');
   var elements = stripe.elements();
   

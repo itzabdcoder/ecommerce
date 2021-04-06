@@ -46,6 +46,7 @@ urlpatterns = [
     re_path(r'^accounts/login/$', accountviews.login_view, name = 'auth_login'),
     re_path(r'^accounts/register/$', accountviews.registration_view, name = 'auth_register'),
     re_path(r'^accounts/activate/(?P<activation_key>\w+)$', accountviews.activation_view, name = 'activation_view'),
+    re_path(r'^accounts/add_user_address$', accountviews.add_user_address, name = 'add_user_address'),
     re_path(r'^ajax/add_user_address/$', accountviews.add_user_address, name = 'ajax_add_user_address'),
 
     # urls of marketing app
