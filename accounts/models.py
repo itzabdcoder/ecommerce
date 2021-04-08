@@ -42,7 +42,7 @@ class UserAddress(models.Model):
         return "%s, %s, %s, %s, %s" %(self.address, self.city, self.state, self.country, self.zipcode)
         
     def __str__(self):
-        return str(self.user.username)
+        return self.get_address()
 
 class UserStripe(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

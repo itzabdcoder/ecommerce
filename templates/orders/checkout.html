@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
 {% block head_title %}
-Your Address
+MyChoices : Payment
 {% endblock %}
 
+<style>
+
+  {% block styles %}
+  .card-errors{
+    color: red;
+  }
+  {% endblock %}
+</style>
 
 {% block content %}
 <div class="row">
@@ -21,7 +29,7 @@ Your Address
         <form method="POST" id="payment-form">{% csrf_token %}
             {% if current_addresses %}
             <br>
-                <h3>Saved Addresses</h3>
+                <h3>Shipping Addresses</h3>
                 {% for address in current_addresses %}
                 {% if request.user.userdefaultaddress.shipping.id == address.id %}
                 <input value="{{ address.id }}" name="shipping_address" type="radio" class="form-check-input" checked="checked"> {{ address.get_address }} <br> 
@@ -39,14 +47,15 @@ Your Address
                 <input value="{{ address.id }}" name="billing_address" type="radio" class="form-check-input" checked="checked"> {{ address.get_address }} <br>
                 {% else %}
                 <input value="{{ address.id }}" name="billing_address" type="radio" class="form-check-input"> {{ address.get_address }} <br>
-                {% endif %}                
+                {% endif %}      
                 {% endfor %}
             {% endif %}
+            {% if current_addresses is not None %}
             <br>
                 <div class="form-row mb-3">
                   <label for="card-element" class="form-label">
                     <h3>
-                        Credit or debit card
+                        Credit Card Info:
                     </h3>
                   </label>
                   <div id="card-element" class="form-control">
@@ -57,6 +66,7 @@ Your Address
                   <div id="card-errors" role="alert"></div>
                 </div>
                 <button class="btn btn-outline-success form-control" type="submit">Submit Payment</button>
+            {% endif %}
         </form>
     </div>
     <div class="col-sm-6" style="display: none;" id="shippingAddressForm">

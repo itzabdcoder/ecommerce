@@ -1,3 +1,4 @@
+from accounts.models import UserAddress
 from decimal import Decimal
 from django.db import models
 from django.conf import settings
@@ -24,6 +25,8 @@ class Order(models.Model):
     order_id = models.CharField(max_length = 120, default = "ABC" , unique = True)
     cart = models.ForeignKey(Cart,on_delete=models.CASCADE)
     status = models.CharField(max_length = 120, choices = STATUS_CHOICES, default = "Started")
+    shipping_address = models.ForeignKey(UserAddress, related_name='shipping_address', on_delete=models.CASCADE, null=True,blank=True)
+    billing_address = models.ForeignKey(UserAddress, related_name='billing_address', on_delete=models.CASCADE, null=True,blank=True)
     timestamp = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(default=timezone.now)
     sub_total = models.DecimalField(default=10.99, max_digits=1000, decimal_places= 2)
