@@ -46,3 +46,6 @@ class Order(models.Model):
         instance.final_total = sub_total_dec + tax_total_dec
         instance.save()
         return instance.final_total
+
+    class Meta:
+        ordering = ['-timestamp']

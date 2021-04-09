@@ -4,6 +4,9 @@ Orders
 {% endblock %}
 {% block content %}
 {% for order in user.order_set.all %}
-{{order.final_total}} <br>
+<h5>
+    Your Order at {{order.updated}} of total of {{order.final_total}} has been charged. <br>
+    Enjoy Your Purchase. <br><br>
+</h5>
 {% endfor %}
 {% endblock %}
